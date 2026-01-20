@@ -1,150 +1,84 @@
-// let arrays = [5, 3, 2, 6, 4, 1, 7, 8];
-
-// for (const element in arrays) {
-//     console.log(arrays[element])
-// }
-
-// arrays.push(10);
-// console.log(arrays);
-// arrays.pop()
-// console.log(arrays)
-
-// console.log(arrays.includes(8));
-// console.log(arrays.indexOf(18));
-// console.log(arrays.lastIndexOf(18));
-
-// arrays.sort((a, b) => {
-//         return b-a;
-// });
-// console.log(arrays);
-
-// let resault = arrays.map(
-//     function(e){
-//         if(e%2) return "le"
-//         return 'chan'
-//     }
-// )
-// console.log(arrays);
-// console.log(resault);
-
-// // let resault = arrays.map(element => element *2);
-
-// resault = arrays.filter(function(e){
-//     return !(e%2);
-// })
-// console.log(resault);
-
-// resault = arrays.some(function(e){
-//     return e>8;
-// })
-
-// //map - reduce
-// resault = arrays.reduce(function(sum, e){
-//     if(e%2){
-//         return sum += e
-//     } else return sum -= e
-// })
-// console.log(resault)
-
-// let array = [1, 2, 3, 4, 5];
-// //task 1
-// let resaults = array.map(
-//     function(e){
-//         if(e%2) return "le"
-//         return 'chan'
-//     }
-// )
-// console.log(resaults)
-
-// //task 2
-// resaults = array.reduce(function(sum, e){
-//     return sum *= e;
-// })
-// console.log(resaults)
-
-// //task 3
-// resaults = array.filter(function(e){
-//     return !(e%2);
-// })
-// console.log(resaults);
-
-// //task 4
-// resaults = array.some(function(e){
-//     return e%2;
-// })
-// console.log(resaults)
-
-// //task 5
-// resaults = array.every(function(e){
-//     return e%3
-// })
-// console.log(resaults)
-
-let student1 = {
-    name : "An",
-    familyName : "Hoang",
-    age : 21,
-    score : 10,
-    birthday: {
-        year : 2004,
-        month : 8,
-        day : 27
-    },
-    subjects : ['CSDL', 'KTLT', 'CSLT'],
-    getFulName : function(){
-        return this.familyName + " " + this.name
-    }
-}
-
-let json = '{"name":"An","family":"Hoang","age":21,"score":10,"birthday":{"year":2004,"month":8,"day":27},"subjects":["CSDL","KTLT","CSLT"]}'
-
-
-let Student = function(name, familyName, score, age){
+// Câu 1
+function Product(id, name, price, quantity, category, isAvailable) {
+    this.id = id;
     this.name = name;
-    this.familyName = familyName;
-    this.score = score;
-    this.age = age;
-    this.getFulName = function(){
-        return `${familyName} ${name}`;
-    }
+    this.price = price;
+    this.quantity = quantity;
+    this.category = category;
+    this.isAvailable = isAvailable;
 }
 
-let student2 = new Student ("Ân", "Hoàng", 10, 21);
-let student3 = new Student ("Ân", "Hoàng", 9, 20);
-let student4 = new Student ("Ân", "Hoàng", 8, 19);
-// Student.prototype.mobile = "123456789";
+// Câu 2
+let products = [
+    new Product(1, "iPhone 14", 999, 5, "Electronics", true),
+    new Product(2, "Samsung Galaxy", 850, 3, "Electronics", true),
+    new Product(3, "AirPods Pro", 1000, 10, "Accessories", true),
+    new Product(4, "Laptop HP", 1200, 2, "Electronics", false),
+    new Product(5, "Ốp lưng", 900, 0, "Accessories", true)
+];
 
-let array = [];
-array.push(student2);
-array.push(student3);
-array.push(student4);
-
-let resault =  array.map(function(e){
+// Câu 3
+console.log("\n===== Câu 3: Mảng name và price =====");
+let resault = products.map(function(e) {
     return {
-        fulname : e.getFulName(),
-        score : e.score
-    }
-})
+        name: e.name,
+        price: e.price
+    };
+});
+console.log(resault);
 
+// Câu 4
+console.log("\n===== Câu 4: Sản phẩm còn hàng =====");
+resault = products.filter(function(e) {
+    return e.quantity > 0;
+});
 console.log(resault)
 
-resault =  array.filter(function(e){
-    return e.age<2
-})
-console.log(resault)
+// Câu 5
+console.log("\n===== Câu 5: Kiểm tra sản phẩm giá > 30 =====");
+resault = products.some(function(e) {
+    return e.price > 30;
+});
+console.log("Có sản phẩm giá > 30:", resault);
 
-resault =  array.every(function(e){
-    return e.score >= 0
-})
-console.log(resault)
+// Câu 6
+console.log("\n===== Câu 6: Kiểmm tra Accessories có sẵn hàng =====");
+let check = products.filter(function(e) {
+    return e.category === "Accessories";
+});
+resault = check.every(function(e) {
+    return e.isAvailable === true;
+});
+console.log("Tất cả sản phẩm Acccessories có sẵn hàng:", resault);
 
-array.sort(
-    CompareAgeAndScore(-1)
-)
-function CompareAgeAndScore (type){
-    return function(a, b){
-        if (a.age == b.age) return type*(a.score - b.score)
-            return type*(a.age - b.age)
-    }
+// Câu 7:
+console.log("\n===== Câu 7: Tổng giá trị kho hàng =====");
+resault = products.reduce(function(sum, e) {
+    return sum + (e.price * e.quantity);
+}, 0);
+console.log("Tổng giá trị kho hàng:", resault);
+
+// Câu 8:
+console.log("\n===== Câu 8: Duyệt với for...of =====");
+for (const element of products) {
+    console.log(element.name, "-", element.category, "-", element.isAvailable);
 }
-console.log(array)
+
+// Câu 9:
+console.log("\n===== Câu 9: Duyệt với for...in =====");
+for (let i = 0; i < products.length; i++) {
+    for (const key in products[i]) {
+        console.log(`${key}: ${products[i][key]}`);
+    }
+    console.log("---");
+}
+
+// Câu 10:
+console.log("\n===== Câu 10: Danh sách sản phẩm đang bán và còn hàng =====");
+resault = products.filter(function(e) {
+        return e.isAvailable === true && e.quantity > 0;
+    }).map(function(e) {
+        return e.name;
+    });
+console.log(resault);
+
